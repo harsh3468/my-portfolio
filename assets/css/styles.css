@@ -585,10 +585,10 @@ img{
 .contact__error {
     font-size: smaller;
     display:block;
+    color: red;
 }
 .contact__noerror{
     display: none;
-    font-size: smaller;
 }
 /*==================== FOOTER ====================*/
 .footer{
