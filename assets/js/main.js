@@ -143,3 +143,43 @@ themeButton.addEventListener('click', () => {
     localStorage.setItem('selected-theme', getCurrentTheme())
     localStorage.setItem('selected-icon', getCurrentIcon())
 })
+//Submit Button
+
+const submit = document.getElementById('submit-button');
+submit.addEventListener('click', (event)=>{
+    event.preventDefault()
+    const contact_data = {
+        subject: document.getElementById('name').value,
+        emailto:"harshkumargoel.3468@gmail.com", 
+        emailfrom:document.getElementById('email').value,
+        text:document.getElementById('message').value
+    } 
+    document.getElementById('name').value = "", 
+    document.getElementById('email').value = "";
+    document.getElementById('message').value = "";
+
+    const response = fetch("https://mail-infinite.herokuapp.com/details", {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(contact_data)   
+    });
+    const btn_response =  document.querySelector("#submit-link")
+    response.then(state=>{
+        if(state.status===200){
+         btn_response.innerHTML=`Message Sent <i class="fas fa-check button__icon"></i>`
+        }else{
+            btn_response.innerHTML=`Retry <i class="fas fa-reply button__icon"></i>`
+        }
+        setTimeout(()=>{
+            btn_response.innerHTML =`Send Mesaage <i class="uil uil-message button__icon"></i>`
+         },2000)
+    }).catch(()=>{
+        btn_response.innerHTML=`Retry <i class="fas fa-reply button__icon"></i>`
+        setTimeout(()=>{
+            btn_response.innerHTML =`Send Mesaage <i class="uil uil-message button__icon"></i>`
+         },2000)
+    })  
+    
+})
