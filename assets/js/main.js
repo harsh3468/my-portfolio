@@ -145,18 +145,52 @@ themeButton.addEventListener('click', () => {
 //Submit Button
 
 const submit = document.getElementById('submit-button');
+
+const inputName  =  document.getElementById('name');
+const inputEmail  =  document.getElementById('email');
+const errorName = document.getElementById("name-error");
+const errorEmail = document.getElementById("email-error");
+let checkName = false;
+let checkEmail = false;
+inputName.addEventListener('blur',(event)=>{
+    const regex = /[a-zA-Z]/
+    checkName = regex.test(inputName.value);
+    if(!checkName){
+    errorName.classList.remove("contact__noerror")
+    errorName.classList.add("contact__error")
+    }else{
+    errorName.classList.remove("contact__error")
+    errorName.classList.add("contact__noerror")
+    }
+})
+inputEmail.addEventListener('blur',(event)=>{
+    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    checkEmail = regex.test(inputEmail.value);
+    if(!checkEmail){
+    errorEmail.classList.remove("contact__noerror")
+    errorEmail.classList.add("contact__error")
+    }else{
+    errorEmail.classList.remove("contact__error")
+    errorEmail.classList.add("contact__noerror")
+    }
+})
+
 submit.addEventListener('click', (event)=>{
     event.preventDefault()
+    if(checkName&&checkEmail){
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const message = document.getElementById('message');
     const contact_data = {
-        subject: document.getElementById('name').value,
+        subject:name.value,
         emailto:"harshkumargoel.3468@gmail.com", 
-        emailfrom:document.getElementById('email').value,
-        text:document.getElementById('message').value
+        emailfrom:email.value,
+        text:message.value
     } 
-    document.getElementById('name').value = "", 
-    document.getElementById('email').value = "";
-    document.getElementById('message').value = "";
-
+    name.value = "", 
+    email.value = "";
+    message.value = "";
+    
     const response = fetch("https://mail-infinite.herokuapp.com/details", {
     method: 'POST', 
     headers: {
@@ -180,5 +214,5 @@ submit.addEventListener('click', (event)=>{
             btn_response.innerHTML =`Send Mesaage <i class="uil uil-message button__icon"></i>`
          },2000)
     })  
-    
+    }
 })

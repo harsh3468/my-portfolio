@@ -582,7 +582,14 @@ img{
     outline: none;
     padding: .25rem .5rem .5rem 0;
 }
-
+.contact__error {
+    font-size: smaller;
+    display:block;
+}
+.contact__noerror{
+    display: none;
+    font-size: smaller;
+}
 /*==================== FOOTER ====================*/
 .footer{
     padding-top: 2rem;
